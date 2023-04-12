@@ -40,18 +40,33 @@ class Array
   end
   
   def my_none? 
+    result = []
+    self.length.times {|index| result<<index if yield self[index]}
+    result.length == 0
   end
   
   def my_count 
-    
+    return self.size unless block_given?
+    result = []
+    self.length.times {|index| result << index if yield self[index]}
+    result.length
   end
   
   def my_map 
-    
+    result = []
+    self.length.times {|index| result << yield(self[index])}
+    result
   end
   
-  def my_inject
-    
+  def my_inject(result = nil)
+    self.length.times do |index| 
+      if result == nil && index == 0
+        result = self[index]
+        next
+      end
+        result = yield result, self[index]
+    end
+    result
   end
 
 end
