@@ -8,4 +8,17 @@ end
 # to this method
 class Array
   # Define my_each here
+  def my_each
+    for element in self
+      yield element
+    end
+  end
+  
+  def my_each_with_index
+    i = 0
+    for element in self
+      yield [element, i]
+      i = i + 1
+    end
+  end
 end
