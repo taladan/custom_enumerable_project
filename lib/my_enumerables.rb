@@ -9,16 +9,49 @@ end
 class Array
   # Define my_each here
   def my_each
-    for element in self
-      yield element
-    end
+    return self.to_enum unless block_given?
+    self.length.times {|index| yield self[index]}
+    self
   end
   
   def my_each_with_index
-    i = 0
-    for element in self
-      yield [element, i]
-      i = i + 1
-    end
+    return self.to_enum unless block_given?
+    self.length.times {|index| yield self[index], index}
+    self
   end
+
+  
+  def my_select
+    result = []
+    self.length.times {|index| result << self[index] if yield self[index]}
+    result
+  end
+  
+  def my_all? 
+    result = false
+    self.length.times {|index| result = yield self[index]}
+    result
+  end
+  
+  def my_any? 
+    result = true
+    self.length.times {|index| result = yield self[index]}
+    result
+  end
+  
+  def my_none? 
+  end
+  
+  def my_count 
+    
+  end
+  
+  def my_map 
+    
+  end
+  
+  def my_inject
+    
+  end
+
 end
